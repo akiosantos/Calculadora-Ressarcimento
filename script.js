@@ -57,15 +57,15 @@ function calcularRessarcimento() {
   var baseCalculo = faturamentoTotal * 0.012;
 
   // Formatar a base de cálculo com vírgula a cada 3 dígitos
-  var baseCalculoFormatado = baseCalculo.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  var baseCalculoFormatado = formatarMoeda(baseCalculo);
 
   // Atualizar o elemento HTML com o valor da base de cálculo formatado
-  document.getElementById("base-calculo").innerText = "Base de Cálculo: R$ " + baseCalculoFormatado;
+  document.getElementById("base-calculo").innerText = "Base de Cálculo: " + baseCalculoFormatado;
   
   var saldoMedio = (baseCalculo * meses) - 0.20; // Subtrai 20%
 
-  // Formatar o resultado sem arredondamento
-  var saldoMedioFormatado = saldoMedio.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  // Formatar o resultado com vírgula e símbolo de moeda
+  var saldoMedioFormatado = formatarMoeda(saldoMedio);
 
-  document.getElementById("resultado").innerText = "O saldo médio é: R$ " + saldoMedioFormatado;
+  document.getElementById("resultado").innerText = "O saldo médio é: " + saldoMedioFormatado;
 }
