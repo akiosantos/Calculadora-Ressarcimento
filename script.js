@@ -1,8 +1,3 @@
-// Função para formatar um número como moeda
-function formatarMoeda(valor) {
-    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-}
-
 // Função para formatar o valor do faturamento total
 function formatarFaturamentoTotal() {
     var faturamentoTotalInput = document.getElementById("faturamento-total");
@@ -13,31 +8,22 @@ function formatarFaturamentoTotal() {
   
     // Verificar se o valor é válido
     if (valor !== '') {
-        // Converter para número
-        var numero = parseFloat(valor);
+        // Formatar o número como moeda
+        var valorFormatado = formatarMoeda(parseFloat(valor));
 
-        // Verificar se o número é válido
-        if (!isNaN(numero)) {
-            // Formatar o número como moeda
-            var valorFormatado = formatarMoeda(numero);
+        // Definir o valor do input como moeda formatada
+        faturamentoTotalInput.value = valorFormatado;
 
-            // Definir o valor do input como moeda formatada
-            faturamentoTotalInput.value = valorFormatado;
-
-            // Calcular o ressarcimento após a formatação do valor do faturamento total
-            calcularRessarcimento();
-        } else {
-            alert('Por favor, insira um valor numérico válido.');
-            faturamentoTotalInput.value = ''; // Limpar o campo se o valor não for válido
-        }
+        // Calcular o ressarcimento após a formatação do valor do faturamento total
+        calcularRessarcimento();
     }
 }
 
 // Função para calcular o ressarcimento
 function calcularRessarcimento() {
     var faturamentoTotalInput = document.getElementById("faturamento-total");
-    var faturamentoTotalValue = faturamentoTotalInput.value.trim().replace(/[^0-9.]/g, ''); // Remover todos os caracteres, exceto números e ponto decimal
-    var faturamentoTotal = parseFloat(faturamentoTotalValue); // Converter para número
+    var faturamentoTotalValue = faturamentoTotalInput.value.trim().replace(/[^\d.,]/g, ''); // Remover todos os caracteres, exceto números, pontos e vírgulas
+    var faturamentoTotal = parseFloat(faturamentoTotalValue.replace(',', '.')); // Substituir vírgulas por pontos e converter para número
 
     if (isNaN(faturamentoTotal)) {
         alert("Por favor, insira um valor válido para o Faturamento Total.");
