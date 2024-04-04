@@ -33,6 +33,9 @@ function formatarFaturamentoTotal() {
     
     // Definir o valor do input como moeda formatada
     faturamentoTotalInput.value = valorFormatado;
+
+    // Calcular o ressarcimento após a formatação do valor do faturamento total
+    calcularRessarcimento();
   } else {
     alert('Por favor, insira um valor numérico válido.');
   }
@@ -69,3 +72,6 @@ function calcularRessarcimento() {
 
   document.getElementById("resultado").innerText = "O saldo médio é: " + saldoMedioFormatado;
 }
+
+// Adicionar evento de entrada ao campo de faturamento total
+document.getElementById("faturamento-total").addEventListener("input", formatarFaturamentoTotal);
