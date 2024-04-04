@@ -3,36 +3,6 @@ function formatarMoeda(valor) {
     return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-// Função para formatar o valor do faturamento total
-function formatarFaturamentoTotal() {
-    var faturamentoTotalInput = document.getElementById("faturamento-total");
-    var valor = faturamentoTotalInput.value.trim();
-  
-    // Remover todos os caracteres, exceto números, pontos e vírgulas
-    valor = valor.replace(/[^0-9,.]/g, '');
-  
-    // Verificar se o valor é válido
-    if (valor !== '') {
-        // Converter para número
-        var numero = parseFloat(valor.replace(',', '.')); // Substituir vírgulas por pontos
-
-        // Verificar se o número é válido
-        if (!isNaN(numero)) {
-            // Formatar o número como moeda
-            var valorFormatado = formatarMoeda(numero);
-
-            // Definir o valor do input como moeda formatada
-            faturamentoTotalInput.value = valorFormatado;
-
-            // Calcular o ressarcimento após a formatação do valor do faturamento total
-            calcularRessarcimento();
-        } else {
-            alert('Por favor, insira um valor numérico válido.');
-            faturamentoTotalInput.value = ''; // Limpar o campo se o valor não for válido
-        }
-    }
-}
-
 // Função para calcular o ressarcimento
 function calcularRessarcimento() {
     var faturamentoTotalInput = document.getElementById("faturamento-total");
@@ -62,5 +32,41 @@ function calcularRessarcimento() {
     document.getElementById("resultado").innerText = "O saldo médio é: " + saldoMedioFormatado;
 }
 
+// Função para formatar o valor do faturamento total e calcular o ressarcimento
+function formatarFaturamentoTotal() {
+    var faturamentoTotalInput = document.getElementById("faturamento-total");
+    var valor = faturamentoTotalInput.value.trim();
+  
+    // Remover todos os caracteres, exceto números, pontos e vírgulas
+    valor = valor.replace(/[^0-9,.]/g, '');
+  
+    // Verificar se o valor é válido
+    if (valor !== '') {
+        // Converter para número
+        var numero = parseFloat(valor.replace(',', '.')); // Substituir vírgulas por pontos
+
+        // Verificar se o número é válido
+        if (!isNaN(numero)) {
+            // Formatar o número como moeda
+            var valorFormatado = formatarMoeda(numero);
+
+            // Definir o valor do input como moeda formatada
+            faturamentoTotalInput.value = valorFormatado;
+
+            // Calcular o ressarcimento
+            calcularRessarcimento();
+        } else {
+            alert('Por favor, insira um valor numérico válido.');
+            faturamentoTotalInput.value = ''; // Limpar o campo se o valor não for válido
+        }
+    }
+}
+
 // Adicionar evento ao campo de faturamento total para formatar o valor quando o usuário sair do campo
 document.getElementById("faturamento-total").addEventListener("blur", formatarFaturamentoTotal);
+
+// Adicionar evento ao campo de meses para calcular o ressarcimento quando o valor for alterado
+document.getElementById("meses").addEventListener("change", calcularRessarcimento);
+
+// Calcular o ressarcimento inicialmente ao carregar a página
+calcularRessarcimento();
