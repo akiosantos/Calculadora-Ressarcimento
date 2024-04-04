@@ -7,10 +7,10 @@ function formatarMoeda(valor) {
 function formatarFaturamentoTotal() {
     var faturamentoTotalInput = document.getElementById("faturamento-total");
     var valor = faturamentoTotalInput.value.trim();
-
+  
     // Remover todos os caracteres, exceto números, pontos e vírgulas
     valor = valor.replace(/[^0-9,.]/g, '');
-
+  
     // Verificar se o valor é válido
     if (valor !== '') {
         // Converter para número
@@ -53,7 +53,7 @@ function calcularRessarcimento() {
 
     // Atualizar o elemento HTML com o valor da base de cálculo formatado
     document.getElementById("base-calculo").innerText = "Base de Cálculo: " + baseCalculoFormatado;
-
+  
     var saldoMedio = (baseCalculo * meses) - 0.20; // Subtrai 20%
 
     // Formatar o resultado com vírgula e símbolo de moeda
@@ -61,3 +61,6 @@ function calcularRessarcimento() {
 
     document.getElementById("resultado").innerText = "O saldo médio é: " + saldoMedioFormatado;
 }
+
+// Adicionar evento ao campo de faturamento total para formatar o valor quando o usuário sair do campo
+document.getElementById("faturamento-total").addEventListener("blur", formatarFaturamentoTotal);
