@@ -14,6 +14,8 @@ function calcularRessarcimento() {
         return;
     }
 
+    var meses = parseInt(document.getElementById("meses").value);
+
     var baseCalculo = faturamentoTotal * 0.012; // Calcula a base de cálculo corretamente
 
     // Formatar a base de cálculo com vírgula a cada 3 dígitos
@@ -21,6 +23,13 @@ function calcularRessarcimento() {
 
     // Atualizar o elemento HTML com o valor da base de cálculo formatado
     document.getElementById("base-calculo").innerText = "Base de Cálculo: " + baseCalculoFormatado;
+  
+    var saldoMedio = (baseCalculo * meses) - 0.20; // Subtrai 20%
+
+    // Formatar o resultado com vírgula e símbolo de moeda
+    var saldoMedioFormatado = formatarMoeda(saldoMedio);
+
+    document.getElementById("resultado").innerText = "O saldo médio é: " + saldoMedioFormatado;
 }
 
 // Função para formatar o valor do faturamento total e calcular o ressarcimento
@@ -56,5 +65,8 @@ function formatarFaturamentoTotal() {
 // Adicionar evento ao campo de faturamento total para formatar o valor e calcular a base de cálculo quando o usuário sair do campo
 document.getElementById("faturamento-total").addEventListener("blur", formatarFaturamentoTotal);
 
-// Calcular a base de cálculo inicialmente ao carregar a página
+// Adicionar evento ao campo de meses para calcular o ressarcimento quando o valor for alterado
+document.getElementById("meses").addEventListener("input", calcularRessarcimento);
+
+// Calcular o ressarcimento inicialmente ao carregar a página
 calcularRessarcimento();
