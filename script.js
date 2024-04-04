@@ -6,7 +6,6 @@ function formatarMoeda(valor) {
 // Função para formatar o valor do faturamento total
 function formatarFaturamentoTotal() {
   var faturamentoTotalInput = document.getElementById("faturamento-total");
-  var valor = faturamentoTotalInput.value.trim().replace(/^R\$/, ''); // Remover o símbolo de "R$"
   
   // Remover todos os pontos e vírgulas
   valor = valor.replace(/[.,\s]/g, '');
