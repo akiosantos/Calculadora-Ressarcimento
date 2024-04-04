@@ -8,6 +8,9 @@ function formatarFaturamentoTotal() {
     var faturamentoTotalInput = document.getElementById("faturamento-total");
     var valor = faturamentoTotalInput.value.trim();
   
+    // Remover todos os caracteres, exceto números, pontos e vírgulas
+    valor = valor.replace(/[^0-9,.]/g, '');
+  
     // Verificar se o valor é válido
     if (valor !== '') {
         // Converter para número
@@ -33,7 +36,7 @@ function formatarFaturamentoTotal() {
 // Função para calcular o ressarcimento
 function calcularRessarcimento() {
     var faturamentoTotalInput = document.getElementById("faturamento-total");
-    var faturamentoTotalValue = faturamentoTotalInput.value.trim().replace(/[^0-9.,]/g, ''); // Remover todos os caracteres, exceto números, pontos e vírgulas
+    var faturamentoTotalValue = faturamentoTotalInput.value.trim().replace(/[^0-9,.]/g, ''); // Remover todos os caracteres, exceto números, pontos e vírgulas
     var faturamentoTotal = parseFloat(faturamentoTotalValue.replace(',', '.')); // Substituir vírgulas por pontos e converter para número
 
     if (isNaN(faturamentoTotal)) {
