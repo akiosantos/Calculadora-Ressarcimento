@@ -6,22 +6,27 @@ function formatarMoeda(valor) {
 // Função para formatar o valor do faturamento total
 function formatarFaturamentoTotal() {
     var faturamentoTotalInput = document.getElementById("faturamento-total");
-    var valor = faturamentoTotalInput.value.trim().replace(/[^0-9.,]/g, ''); // Remover todos os caracteres, exceto números, pontos e vírgulas
-    var numero = parseFloat(valor.replace(',', '.')); // Substituir vírgulas por pontos e converter para número
-
+    var valor = faturamentoTotalInput.value.trim();
+  
     // Verificar se o valor é válido
-    if (!isNaN(numero)) {
-        // Formatar o número como moeda
-        var valorFormatado = formatarMoeda(numero);
+    if (valor !== '') {
+        // Converter para número
+        var numero = parseFloat(valor.replace(',', '.')); // Substituir vírgulas por pontos
 
-        // Definir o valor do input como moeda formatada
-        faturamentoTotalInput.value = valorFormatado;
+        // Verificar se o número é válido
+        if (!isNaN(numero)) {
+            // Formatar o número como moeda
+            var valorFormatado = formatarMoeda(numero);
 
-        // Calcular o ressarcimento após a formatação do valor do faturamento total
-        calcularRessarcimento();
-    } else {
-        alert('Por favor, insira um valor numérico válido.');
-        faturamentoTotalInput.value = ''; // Limpar o campo se o valor não for válido
+            // Definir o valor do input como moeda formatada
+            faturamentoTotalInput.value = valorFormatado;
+
+            // Calcular o ressarcimento após a formatação do valor do faturamento total
+            calcularRessarcimento();
+        } else {
+            alert('Por favor, insira um valor numérico válido.');
+            faturamentoTotalInput.value = ''; // Limpar o campo se o valor não for válido
+        }
     }
 }
 
