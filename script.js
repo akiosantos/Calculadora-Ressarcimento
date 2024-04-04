@@ -6,13 +6,8 @@ function formatarMoeda(valor) {
 // Função para formatar o valor do faturamento total
 function formatarFaturamentoTotal() {
     var faturamentoTotalInput = document.getElementById("faturamento-total");
-    var valor = faturamentoTotalInput.value.trim().replace(/^R\$/, ''); // Remover o símbolo de "R$"
-  
-    // Remover todos os pontos e vírgulas
-    valor = valor.replace(/[.,\s]/g, '');
-
-    // Converter para número
-    var numero = parseFloat(valor);
+    var valor = faturamentoTotalInput.value.trim().replace(/[^0-9.,]/g, ''); // Remover todos os caracteres, exceto números, pontos e vírgulas
+    var numero = parseFloat(valor.replace(',', '.')); // Substituir vírgulas por pontos e converter para número
 
     // Verificar se o valor é válido
     if (!isNaN(numero)) {
@@ -33,10 +28,8 @@ function formatarFaturamentoTotal() {
 // Função para calcular o ressarcimento
 function calcularRessarcimento() {
     var faturamentoTotalInput = document.getElementById("faturamento-total");
-    var faturamentoTotalValue = faturamentoTotalInput.value.trim().replace(/R\$/, '').replace(/\./g, '').trim();
-
-    // Converter para número
-    var faturamentoTotal = parseFloat(faturamentoTotalValue);
+    var faturamentoTotalValue = faturamentoTotalInput.value.trim().replace(/[^0-9.,]/g, ''); // Remover todos os caracteres, exceto números, pontos e vírgulas
+    var faturamentoTotal = parseFloat(faturamentoTotalValue.replace(',', '.')); // Substituir vírgulas por pontos e converter para número
 
     if (isNaN(faturamentoTotal)) {
         alert("Por favor, insira um valor válido para o Faturamento Total.");
