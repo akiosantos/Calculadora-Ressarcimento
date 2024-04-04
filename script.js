@@ -11,18 +11,6 @@ function formatarFaturamentoTotal() {
     // Remover todos os pontos e vírgulas
     valor = valor.replace(/[.,\s]/g, '');
 
-    // Remover zeros à esquerda
-    valor = valor.replace(/^0+/, '');
-
-    // Adicionar vírgula antes dos últimos 2 dígitos
-    if (valor.length > 2) {
-        valor = valor.slice(0, -2) + ',' + valor.slice(-2);
-    } else if (valor.length === 2) {
-        valor = '0,' + valor;
-    } else if (valor.length === 1) {
-        valor = '0,0' + valor;
-    }
-
     // Converter para número
     var numero = parseFloat(valor);
 
@@ -38,6 +26,7 @@ function formatarFaturamentoTotal() {
         calcularRessarcimento();
     } else {
         alert('Por favor, insira um valor numérico válido.');
+        faturamentoTotalInput.value = ''; // Limpar o campo se o valor não for válido
     }
 }
 
@@ -72,5 +61,5 @@ function calcularRessarcimento() {
     document.getElementById("resultado").innerText = "O saldo médio é: " + saldoMedioFormatado;
 }
 
-// Adicionar evento de entrada ao campo de faturamento total
-document.getElementById("faturamento-total").addEventListener("input", formatarFaturamentoTotal);
+// Adicionar evento ao campo de faturamento total para formatar o valor quando o usuário sair do campo
+document.getElementById("faturamento-total").addEventListener("blur", formatarFaturamentoTotal);
