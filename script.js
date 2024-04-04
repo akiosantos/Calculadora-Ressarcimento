@@ -1,3 +1,8 @@
+// Função para formatar um número como moeda
+function formatarMoeda(valor) {
+    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
 // Função para formatar o valor do faturamento total
 function formatarFaturamentoTotal() {
   var faturamentoTotalInput = document.getElementById("faturamento-total");
@@ -17,18 +22,21 @@ function formatarFaturamentoTotal() {
   } else if (valor.length === 1) {
     valor = '0,0' + valor;
   }
-  
-  // Adicionar ponto a cada 3 dígitos
-  valor = valor.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
-  // Atualizar o valor no campo, removendo espaços extras no início
-  faturamentoTotalInput.value = "R$ " + valor.trimStart();
+  // Converter para número
+  var numero = parseFloat(valor);
 
-  // Chamar a função para calcular o ressarcimento
-  calcularRessarcimento();
+  // Verificar se o valor é válido
+  if (!isNaN(numero)) {
+    // Formatar o número como moeda
+    var valorFormatado = formatarMoeda(numero);
+    
+    // Definir o valor do input como moeda formatada
+    faturamentoTotalInput.value = valorFormatado;
+  } else {
+    alert('Por favor, insira um valor numérico válido.');
+  }
 }
-
-
 
 
 // Função para calcular o ressarcimento
