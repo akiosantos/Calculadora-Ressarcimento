@@ -26,6 +26,12 @@ function formatarFaturamentoTotal() {
   
     var meses = parseInt(document.getElementById("meses").value);
   
+    // Verificar se os meses foram digitados
+    if (isNaN(meses) || meses <= 0) {
+      document.getElementById("resultado").innerText = "Por favor, insira os meses.";
+      return;
+    }
+  
     var baseCalculo = faturamentoTotal * 0.012;
   
     // Formatar a base de cálculo com vírgula a cada 3 dígitos
