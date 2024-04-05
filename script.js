@@ -6,10 +6,6 @@ function formatarFaturamentoTotal() {
   // Converter para número
   var faturamentoTotal = parseFloat(faturamentoTotalValue);
 
-  if (isNaN(faturamentoTotal)) {
-    alert("Por favor, insira um valor válido para o Faturamento Total.");
-    return;
-  }
 
   var meses = parseInt(document.getElementById("meses").value);
 
