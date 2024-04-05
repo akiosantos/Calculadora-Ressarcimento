@@ -1,24 +1,3 @@
-// Função para formatar o valor do faturamento total
-function formatarFaturamentoTotal() {
-    var faturamentoTotalInput = document.getElementById("faturamento-total");
-    var valor = faturamentoTotalInput.value.trim();
-  
-    // Remover todos os caracteres, exceto números e ponto decimal
-    valor = valor.replace(/[^0-9.]/g, '');
-  
-    // Verificar se o valor é válido
-    if (valor !== '') {
-        // Formatar o número como moeda
-        var valorFormatado = formatarMoeda(parseFloat(valor));
-
-        // Definir o valor do input como moeda formatada
-        faturamentoTotalInput.value = valorFormatado;
-
-        // Calcular o ressarcimento após a formatação do valor do faturamento total
-        calcularRessarcimento();
-    }
-}
-
 // Função para calcular o ressarcimento
 function calcularRessarcimento() {
     var faturamentoTotalInput = document.getElementById("faturamento-total");
@@ -32,7 +11,8 @@ function calcularRessarcimento() {
 
     var meses = parseInt(document.getElementById("meses").value);
 
-    var baseCalculo = faturamentoTotal * 0.012; // Calcula a base de cálculo corretamente
+    // Calcular a base de cálculo corretamente (12% do faturamento total)
+    var baseCalculo = faturamentoTotal * 0.12; // 12% do faturamento total
 
     // Formatar a base de cálculo com vírgula a cada 3 dígitos
     var baseCalculoFormatado = formatarMoeda(baseCalculo);
