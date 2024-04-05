@@ -2,14 +2,12 @@
 function calcularRessarcimento() {
     var faturamentoTotalInput = document.getElementById("faturamento-total");
     var faturamentoTotalValue = faturamentoTotalInput.value.trim().replace(/[^\d.,]/g, ''); // Remover todos os caracteres, exceto números, pontos e vírgulas
-faturamentoTotalValue = faturamentoTotalValue.replace(',', '.'); // Substituir vírgulas por pontos
+    var faturamentoTotal = parseFloat(faturamentoTotalValue.replace(',', '.')); // Substituir vírgulas por pontos e converter para número
 
-if (isNaN(faturamentoTotalValue)) {
-    alert("Por favor, insira um valor válido para o Faturamento Total.");
-    return;
-}
-
-var faturamentoTotal = parseFloat(faturamentoTotalValue); // Converter para número
+    if (isNaN(faturamentoTotal)) {
+        alert("Por favor, insira um valor válido para o Faturamento Total.");
+        return;
+    }
 
     var meses = parseInt(document.getElementById("meses").value);
 
