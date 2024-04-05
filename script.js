@@ -2,6 +2,7 @@
 function calcularRessarcimento() {
     var faturamentoTotalInput = document.getElementById("faturamento-total");
     var faturamentoTotalValue = faturamentoTotalInput.value.trim().replace(/[^\d.,]/g, ''); // Remover todos os caracteres, exceto números, pontos e vírgulas
+    var faturamentoTotal = parseFloat(faturamentoTotalValue.replace(',', '.')); // Substituir vírgulas por pontos e converter para número
 
     if (isNaN(faturamentoTotal)) {
         alert("Por favor, insira um valor válido para o Faturamento Total.");
