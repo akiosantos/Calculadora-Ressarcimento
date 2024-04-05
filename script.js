@@ -2,7 +2,7 @@
 function formatarFaturamentoTotal() {
   var faturamentoTotalInput = document.getElementById("faturamento-total");
   var valor = faturamentoTotalInput.value.trim().replace(/^R\$/, ''); // Remover o símbolo de "R$"
-  
+
   // Remover todos os pontos e vírgulas
   valor = valor.replace(/[.,\s]/g, '');
 
@@ -17,7 +17,7 @@ function formatarFaturamentoTotal() {
   } else if (valor.length === 1) {
     valor = '0,0' + valor;
   }
-  
+
   // Adicionar ponto a cada 3 dígitos
   valor = valor.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
@@ -27,9 +27,6 @@ function formatarFaturamentoTotal() {
   // Chamar a função para calcular o ressarcimento
   calcularRessarcimento();
 }
-
-
-
 
 // Função para calcular o ressarcimento
 function calcularRessarcimento() {
@@ -49,15 +46,15 @@ function calcularRessarcimento() {
   var baseCalculo = faturamentoTotal * 0.012;
 
   // Formatar a base de cálculo com vírgula a cada 3 dígitos
-  var baseCalculoFormatado = baseCalculo.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  var baseCalculoFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(baseCalculo);
 
   // Atualizar o elemento HTML com o valor da base de cálculo formatado
-  document.getElementById("base-calculo").innerText = "Base de Cálculo: R$ " + baseCalculoFormatado;
-  
+  document.getElementById("base-calculo").innerText = "Base de Cálculo: " + baseCalculoFormatado;
+
   var saldoMedio = (baseCalculo * meses) - 0.20; // Subtrai 20%
 
   // Formatar o resultado sem arredondamento
-  var saldoMedioFormatado = saldoMedio.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  var saldoMedioFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(saldoMedio);
 
-  document.getElementById("resultado").innerText = "O saldo médio é: R$ " + saldoMedioFormatado;
+  document.getElementById("resultado").innerText = "O saldo médio é: " + saldoMedioFormatado;
 }
