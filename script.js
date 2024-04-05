@@ -11,8 +11,8 @@ function calcularRessarcimento() {
 
     var meses = parseInt(document.getElementById("meses").value);
 
-    // Calcular a base de cálculo corretamente (12% do faturamento total)
-    var baseCalculo = faturamentoTotal * 0.12; // 12% do faturamento total
+    // Calcular a base de cálculo corretamente (1,2% do faturamento total)
+    var baseCalculo = faturamentoTotal * 0.012; // 12% do faturamento total
 
     // Formatar a base de cálculo com vírgula a cada 3 dígitos
     var baseCalculoFormatado = formatarMoeda(baseCalculo);
