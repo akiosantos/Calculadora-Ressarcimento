@@ -32,7 +32,7 @@ function formatarFaturamentoTotal() {
       return;
     }
   
-    var baseCalculo = faturamentoTotal * 0.012;
+    var baseCalculo = faturamentoTotal * 0.01;
   
     // Formatar a base de cálculo com vírgula a cada 3 dígitos
     var baseCalculoFormatado = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(baseCalculo);
