@@ -9,7 +9,8 @@ function formatarFaturamentoTotal() {
     var valor = faturamentoTotalInput.value.trim();
   
 
-    
+        // Remover todos os caracteres, exceto números, pontos e vírgulas
+    valor = valor.replace(/[^0-9,.]/g, '');
   
     // Verificar se o valor é válido
     if (valor !== '') {
