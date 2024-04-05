@@ -1,67 +1,63 @@
-// Função para formatar um número como moeda
-function formatarMoeda(valor) {
-    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-}
-
 // Função para formatar o valor do faturamento total
 function formatarFaturamentoTotal() {
-    var faturamentoTotalInput = document.getElementById("faturamento-total");
-    var valor = faturamentoTotalInput.value.trim();
+  var faturamentoTotalInput = document.getElementById("faturamento-total");
+  var valor = faturamentoTotalInput.value.trim().replace(/^R\$/, ''); // Remover o símbolo de "R$"
   
+  // Remover todos os pontos e vírgulas
+  valor = valor.replace(/[.,\s]/g, '');
 
-        // Remover todos os caracteres, exceto números, pontos e vírgulas
-    valor = valor.replace(/[^0-9,.]/g, '');
+  // Remover zeros à esquerda
+  valor = valor.replace(/^0+/, '');
+
+  // Adicionar vírgula antes dos últimos 2 dígitos
+  if (valor.length > 2) {
+    valor = valor.slice(0, -2) + ',' + valor.slice(-2);
+  } else if (valor.length === 2) {
+    valor = '0,' + valor;
+  } else if (valor.length === 1) {
+    valor = '0,0' + valor;
+  }
   
-    // Verificar se o valor é válido
-    if (valor !== '') {
-        // Converter para número
-        var numero = parseFloat(valor.replace(',', '.')); // Substituir vírgulas por pontos
+  // Adicionar ponto a cada 3 dígitos
+  valor = valor.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
-        // Verificar se o número é válido
-        if (!isNaN(numero)) {
-            // Formatar o número como moeda
-            var valorFormatado = formatarMoeda(numero);
+  // Atualizar o valor no campo, removendo espaços extras no início
+  faturamentoTotalInput.value = "R$ " + valor.trimStart();
 
-            // Definir o valor do input como moeda formatada
-            faturamentoTotalInput.value = valorFormatado;
-
-            // Calcular o ressarcimento após a formatação do valor do faturamento total
-            calcularRessarcimento();
-        } else {
-            alert('Por favor, insira um valor numérico válido.');
-            faturamentoTotalInput.value = ''; // Limpar o campo se o valor não for válido
-        }
-    }
+  // Chamar a função para calcular o ressarcimento
+  calcularRessarcimento();
 }
+
+
+
 
 // Função para calcular o ressarcimento
 function calcularRessarcimento() {
-    var faturamentoTotalInput = document.getElementById("faturamento-total");
-    var faturamentoTotalValue = faturamentoTotalInput.value.trim().replace(/[^0-9,.]/g, ''); // Remover todos os caracteres, exceto números, pontos e vírgulas
-    var faturamentoTotal = parseFloat(faturamentoTotalValue.replace(',', '.')); // Substituir vírgulas por pontos e converter para número
+  var faturamentoTotalInput = document.getElementById("faturamento-total");
+  var faturamentoTotalValue = faturamentoTotalInput.value.trim().replace(/R\$/, '').replace(/\./g, '').trim();
 
-    if (isNaN(faturamentoTotal)) {
-        alert("Por favor, insira um valor válido para o Faturamento Total.");
-        return;
-    }
+  // Converter para número
+  var faturamentoTotal = parseFloat(faturamentoTotalValue);
 
-    var meses = parseInt(document.getElementById("meses").value);
+  if (isNaN(faturamentoTotal)) {
+    alert("Por favor, insira um valor válido para o Faturamento Total.");
+    return;
+  }
 
-    var baseCalculo = faturamentoTotal * 0.012; // Calcula a base de cálculo corretamente
+  var meses = parseInt(document.getElementById("meses").value);
 
-    // Formatar a base de cálculo com vírgula a cada 3 dígitos
-    var baseCalculoFormatado = formatarMoeda(baseCalculo);
+  var baseCalculo = faturamentoTotal * 0.012;
 
-    // Atualizar o elemento HTML com o valor da base de cálculo formatado
-    document.getElementById("base-calculo").innerText = "Base de Cálculo: " + baseCalculoFormatado;
+  // Formatar a base de cálculo com vírgula a cada 3 dígitos
+  var baseCalculoFormatado = baseCalculo.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+  // Atualizar o elemento HTML com o valor da base de cálculo formatado
+  document.getElementById("base-calculo").innerText = "Base de Cálculo: R$ " + baseCalculoFormatado;
   
-    var saldoMedio = (baseCalculo * meses) - 0.20; // Subtrai 20%
+  var saldoMedio = (baseCalculo * meses) - 0.20; // Subtrai 20%
 
-    // Formatar o resultado com vírgula e símbolo de moeda
-    var saldoMedioFormatado = formatarMoeda(saldoMedio);
+  // Formatar o resultado sem arredondamento
+  var saldoMedioFormatado = saldoMedio.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-    document.getElementById("resultado").innerText = "O saldo médio é: " + saldoMedioFormatado;
+  document.getElementById("resultado").innerText = "O saldo médio é: R$ " + saldoMedioFormatado;
 }
-
-// Adicionar evento ao campo de faturamento total para formatar o valor quando o usuário sair do campo
-document.getElementById("faturamento-total").addEventListener("blur", formatarFaturamentoTotal);
