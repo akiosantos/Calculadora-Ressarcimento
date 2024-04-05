@@ -1,7 +1,7 @@
 // Função para formatar o valor do faturamento total e calcular ressarcimento
 function formatarFaturamentoTotal() {
   var faturamentoTotalInput = document.getElementById("faturamento-total");
-  var faturamentoTotalValue = faturamentoTotalInput.value.trim().replace(/R\$/, '').replace(/\./g, '').trim();
+  var faturamentoTotalValue = faturamentoTotalInput.value.trim().replace(/R\$/, '').replace(/\./g, '').replace(',', '.').trim();
 
   // Converter para número
   var faturamentoTotal = parseFloat(faturamentoTotalValue);
@@ -29,8 +29,9 @@ function formatarFaturamentoTotal() {
   document.getElementById("resultado").innerText = "O saldo médio é: " + saldoMedioFormatado;
 }
 
-// Adicionar evento de entrada para o campo de faturamento total
+// Adicionar evento de entrada para os campos de faturamento total e meses
 document.getElementById("faturamento-total").addEventListener("input", formatarFaturamentoTotal);
-
-// Adicionar evento de entrada para o campo de meses
 document.getElementById("meses").addEventListener("input", formatarFaturamentoTotal);
+
+// Chamar a função formatarFaturamentoTotal inicialmente para calcular e exibir os valores
+formatarFaturamentoTotal();
